@@ -4,7 +4,7 @@ function Kits() {
   return (
     <div className="bg-gray-600 font-bold min-h-screen">
       <h1 className="text-center text-4xl p-4">Kits</h1>
-      <div id="boxes" className="flex flex-row gap-4 grid grid-cols-4">
+      <div id="boxes" className="flex flex-row gap-4 grid grid-cols-4 pl-4 pr-4">
         {initialCards.map((card) => (
           <div
             key={card.id}
