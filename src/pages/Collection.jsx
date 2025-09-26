@@ -49,36 +49,48 @@ function Collection() {
 
   return (
     <div className="bg-gray-600 font-bold min-h-screen">
-      <h1 className="text-center text-4xl p-4">Collection</h1>
+      <h1 className="text-center text-4xl p-4 font-serif">Collection</h1>
 
       <div id="completed">
-        <h1 className="pl-4 text-3xl underline bg-blue-700">Completed</h1>
+        <h1 className="pl-4 text-3xl underline bg-blue-700 font-serif">
+          Completed
+        </h1>
         <div id="completedList" className="pl-8 bg-blue-800">
           <ul className="list-disc pl-8 text-2xl space-y-2">
             {completed.map((item, index) => (
-              <li key={index}>{item}</li>
+              <li key={index} className="hover:bg-blue-700">
+                {item}
+              </li>
             ))}
           </ul>
         </div>
       </div>
 
       <div id="backlog">
-        <h1 className="pl-4 text-3xl underline bg-yellow-700">Backlog</h1>
+        <h1 className="pl-4 text-3xl underline bg-yellow-700 font-serif">
+          Backlog
+        </h1>
         <div id="backlogList" className="pl-8 bg-yellow-800">
           <ul className="list-disc pl-8 text-2xl space-y-2">
             {backlog.map((item, index) => (
-              <li key={index}>{item}</li>
+              <li key={index} className="hover:bg-yellow-700">
+                {item}
+              </li>
             ))}
           </ul>
         </div>
       </div>
 
       <div id="wishlist">
-        <h1 className="pl-4 text-3xl underline bg-red-700">Wishlist</h1>
+        <h1 className="pl-4 text-3xl underline bg-red-700 font-serif">
+          Wishlist
+        </h1>
         <div id="wishlistList" className="pl-8 bg-red-800">
           <ul className="list-disc pl-8 text-2xl space-y-2">
-            {wishlist.map((item, index) =>(
-              <li key={index}>{item}</li>
+            {wishlist.map((item, index) => (
+              <li key={index} className="hover:bg-red-700">
+                {item}
+              </li>
             ))}
           </ul>
         </div>
