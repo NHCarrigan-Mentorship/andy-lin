@@ -1,23 +1,23 @@
 import { useState } from "react";
 
 function Login() {
-    const [form, setForm] = useState({
-      username: "",
-      password: "",
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
     });
+  };
 
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setForm({
-        ...form,
-        [name]: value,
-      });
-    };
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log("Login data:", form);
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Login data:", form);
+  };
 
   return (
     <div className="bg-gray-600 font-bold min-h-screen">
@@ -27,7 +27,9 @@ function Login() {
           onSubmit={handleSubmit}
           className="p-4 flex flex-col gap-2 max-w-sm font-sans"
         >
-          <label className="text-2xl" htmlFor="username">Enter your username:</label>
+          <label className="text-2xl" htmlFor="username">
+            Enter your username:
+          </label>
           <input
             type="text"
             name="username"
@@ -37,7 +39,9 @@ function Login() {
             className="border rounded-lg p-2 bg-gray-300 w-96 mb-3"
           />
 
-          <label className="text-2xl" htmlFor="password">Enter your password:</label>
+          <label className="text-2xl" htmlFor="password">
+            Enter your password:
+          </label>
           <input
             type="password"
             name="password"
