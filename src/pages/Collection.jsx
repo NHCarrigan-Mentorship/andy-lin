@@ -53,7 +53,7 @@ function Collection() {
 
   return (
     <div className="bg-gray-600 font-bold min-h-screen gap-2">
-      <h1 className="text-center text-4xl p-4 font-serif">Collection</h1>
+      <h1 className="text-center text-4xl p-4 font-serif pb-8">Collection</h1>
 
       <div id="completed" className="pb-4">
         <h1
@@ -63,10 +63,10 @@ function Collection() {
           Completed
         </h1>
         {showCompleted && (
-          <div id="completedList" className="pl-8 bg-blue-800">
+          <div id="completedList" className="pl-8 bg-gray-500">
             <ul className="list-disc pl-8 text-2xl space-y-2">
               {completed.map((item, index) => (
-                <li key={index} className="hover:bg-blue-700">
+                <li key={index} className="hover:text-white">
                   {item}
                 </li>
               ))}
@@ -83,10 +83,13 @@ function Collection() {
           Backlog
         </h1>
         {showBacklog && (
-          <div id="backlogList" className="pl-8 bg-yellow-800">
+          <div id="backlogList" className="pl-8 bg-gray-500">
             <ul className="list-disc pl-8 text-2xl space-y-2">
               {backlog.map((item, index) => (
-                <li key={index} className="hover:bg-yellow-700">
+                <li
+                  key={index}
+                  className="hover:text-white"
+                >
                   {item}
                 </li>
               ))}
@@ -103,10 +106,10 @@ function Collection() {
           Wishlist
         </h1>
         {showWishlist && (
-          <div id="wishlistList" className="pl-8 bg-red-800">
+          <div id="wishlistList" className="pl-8 bg-gray-500">
             <ul className="list-disc pl-8 text-2xl space-y-2">
               {wishlist.map((item, index) => (
-                <li key={index} className="hover:bg-red-700">
+                <li key={index} className="hover:text-white">
                   {item}
                 </li>
               ))}
