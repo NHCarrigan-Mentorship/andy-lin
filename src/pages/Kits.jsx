@@ -22,7 +22,7 @@ function Kits() {
           value={query}
           onChange={handleChange}
           placeholder="Search..."
-          className="block mx-auto w-1/4 border-3 bg-gray-300 rounded-l p-2"
+          className="block mx-auto w-1/4 border-3 bg-gray-300 rounded-xl p-2"
         />
       </form>
 

@@ -50,12 +50,27 @@ function Collection() {
   const [showCompleted, setShowCompleted] = useState(true);
   const [showBacklog, setShowBacklog] = useState(true);
   const [showWishlist, setShowWishlist] = useState(true);
+  const [query, setQuery] = useState("")
+
+  const handleChange = (e) => {
+    setQuery(e.target.value)
+  }
 
   return (
     <div className="bg-gray-600 font-bold min-h-screen gap-2">
       <h1 className="text-center text-4xl p-4 font-serif pb-8">Collection</h1>
 
-      <div id="completed" className="pb-4">
+      <form>
+        <input
+          type="text"
+          value={query}
+          onChange={handleChange}
+          placeholder="Search..."
+          className="block mx-auto w-1/4 border-3 bg-gray-300 rounded-xl p-2"
+        />
+      </form>
+
+      <div id="completed" className="pb-4 pt-8">
         <h1
           className="pl-4 text-3xl underline bg-blue-700 font-serif"
           onClick={() => setShowCompleted(!showCompleted)}
@@ -65,11 +80,15 @@ function Collection() {
         {showCompleted && (
           <div id="completedList" className="pl-8 bg-gray-500">
             <ul className="list-disc pl-8 text-2xl space-y-2">
-              {completed.map((item, index) => (
-                <li key={index} className="hover:text-white">
-                  {item}
-                </li>
-              ))}
+              {completed
+                .filter((item) =>
+                  item.toLowerCase().includes(query.toLowerCase())
+                )
+                .map((item, index) => (
+                  <li key={index} className="hover:text-white">
+                    {item}
+                  </li>
+                ))}
             </ul>
           </div>
         )}
@@ -85,14 +104,15 @@ function Collection() {
         {showBacklog && (
           <div id="backlogList" className="pl-8 bg-gray-500">
             <ul className="list-disc pl-8 text-2xl space-y-2">
-              {backlog.map((item, index) => (
-                <li
-                  key={index}
-                  className="hover:text-white"
-                >
-                  {item}
-                </li>
-              ))}
+              {backlog
+                .filter((item) =>
+                  item.toLowerCase().includes(query.toLowerCase())
+                )
+                .map((item, index) => (
+                  <li key={index} className="hover:text-white">
+                    {item}
+                  </li>
+                ))}
             </ul>
           </div>
         )}
@@ -108,11 +128,15 @@ function Collection() {
         {showWishlist && (
           <div id="wishlistList" className="pl-8 bg-gray-500">
             <ul className="list-disc pl-8 text-2xl space-y-2">
-              {wishlist.map((item, index) => (
-                <li key={index} className="hover:text-white">
-                  {item}
-                </li>
-              ))}
+              {wishlist
+                .filter((item) =>
+                  item.toLowerCase().includes(query.toLowerCase())
+                )
+                .map((item, index) => (
+                  <li key={index} className="hover:text-white">
+                    {item}
+                  </li>
+                ))}
             </ul>
           </div>
         )}
