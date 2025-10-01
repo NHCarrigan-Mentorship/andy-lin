@@ -3,16 +3,40 @@ import { useState } from "react";
 
 function Kits() {
   const [query, setQuery] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
+
+  const [selectedGrades, setSelectedGrades] = useState([]);
+  const [selectedSeries, setSelectedSeries] = useState([]);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
   };
 
-  const filteredCards = initialCards.filter((card) =>
-    card.name.toLowerCase().includes(query.toLowerCase())
-  );
+  const toggleGrade = (grade) => {
+    setSelectedGrades((prev) =>
+      prev.includes(grade) ? prev.filter((g) => g !== grade) : [...prev, grade]
+    );
+  };
 
-  const [showFilter, setShowFilter] = useState(false)
+  const toggleSeries = (series) => {
+    setSelectedSeries((prev) =>
+      prev.includes(series)
+        ? prev.filter((s) => s !== series)
+        : [...prev, series]
+    );
+  };
+
+  const filteredCards = initialCards.filter((card) => {
+    const matchesQuery = card.name.toLowerCase().includes(query.toLowerCase());
+
+    const matchesGrade =
+      selectedGrades.length === 0 || selectedGrades.includes(card.grade);
+
+    const matchesSeries =
+      selectedSeries.length === 0 || selectedSeries.includes(card.series);
+
+    return matchesQuery && matchesGrade && matchesSeries;
+  });
 
   return (
     <div className="bg-gray-600 font-bold min-h-screen">
@@ -31,39 +55,60 @@ function Kits() {
       <div id="content" className="flex pt-6">
         <div className="pl-4 w-1/3">
           <button
-            className="text-xl bg-gray-500 border-3 rounded-xl p-2 hover:bg-gray-200"
+            type="button"
+            className="text-xl bg-gray-400 border-3 rounded-xl p-2 hover:bg-gray-200"
             onClick={() => setShowFilter(!showFilter)}
           >
             Filter Options:
           </button>
+
           {showFilter && (
-            <div id="filterBar">
-              <label for="filter">Filter by grade:</label>
-              <select
-                id="filter"
-                name="filter"
-                className="p-2 border rounded bg-gray-500"
-              >
-                <option value="hg">High Grade</option>
-                <option value="rg">RG</option>
-                <option value="mg">MG</option>
-                <option value="mg">PG</option>
-                <option value="mg">SD</option>
-                <option value="mg">Full Mechanics</option>
-              </select>
-              <label for="filter">Filter by series:</label>
-              <select
-                id="filter"
-                name="filter"
-                className="p-2 border rounded bg-gray-500"
-              >
-                <option value="hg">UC</option>
-                <option value="rg">Seed</option>
-                <option value="mg">00</option>
-                <option value="mg">IBO</option>
-                <option value="mg">WFM</option>
-                <option value="mg">GQuuuuuux</option>
-              </select>
+            <div
+              id="filterBar"
+              className="mt-4 p-4 rounded-xl space-y-4"
+            >
+              <div className="border-3 rounded-xl p-2 bg-gray-400">
+                <h2 className="text-lg">Grade:</h2>
+                {["HG", "RG", "MG", "PG", "SD", "Full Mechanics", "Other"].map(
+                  (grade) => (
+                    <label key={grade} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        value={grade}
+                        checked={selectedGrades.includes(grade)}
+                        onChange={() => toggleGrade(grade)}
+                      />
+                      <span>{grade}</span>
+                    </label>
+                  )
+                )}
+              </div>
+
+              <div className="border-3 rounded-xl p-2 bg-gray-400">
+                <h2 className="text-lg">Series:</h2>
+                {[
+                  "UC",
+                  "Seed",
+                  "00",
+                  "IBO",
+                  "WFM",
+                  "GQuuuuuux",
+                  "Wing",
+                  "G Gundam",
+                  "Build Divers",
+                  "Other"
+                ].map((series) => (
+                  <label key={series} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      value={series}
+                      checked={selectedSeries.includes(series)}
+                      onChange={() => toggleSeries(series)}
+                    />
+                    <span>{series}</span>
+                  </label>
+                ))}
+              </div>
             </div>
           )}
         </div>
