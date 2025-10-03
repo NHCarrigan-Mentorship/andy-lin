@@ -53,7 +53,7 @@ function Kits() {
       </form>
 
       <div id="content" className="flex pt-6">
-        <div className="pl-4 w-1/3">
+        <div className="pl-4 w-1/7">
           <button
             type="button"
             className="text-xl bg-gray-400 border-3 rounded-xl p-2 hover:bg-gray-200"
@@ -122,7 +122,7 @@ function Kits() {
           {filteredCards.map((card) => (
             <div
               key={card.id}
-              className="bg-gray-400 border-3 rounded flex flex-col text-xl hover:bg-gray-700 hover:text-green-700"
+              className="bg-gray-400 border-3 rounded-xl flex flex-col text-xl hover:bg-gray-700 hover:text-green-700"
             >
               <img
                 src={card.image}
