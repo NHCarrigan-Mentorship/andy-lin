@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Signup() {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -17,19 +17,30 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login data:", form);
+    console.log("Signup data:", form);
   };
 
   return (
     <div className="bg-gray-600 font-bold min-h-screen">
-      <h1 className="text-center text-4xl p-4 font-serif pb-8">Log In</h1>
-      <div id="login_block" className="flex justify-center mt-20">
+      <h1 className="text-center text-4xl p-4 font-serif">Sign Up</h1>
+      <div id="login_block" className="flex justify-center mt-10">
         <form
           onSubmit={handleSubmit}
           className="p-4 flex flex-col gap-2 max-w-sm font-sans"
         >
+          <label className="text-2xl" htmlFor="email">
+            Enter your email:
+          </label>
+          <input
+            type="text"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="border rounded-lg p-2 bg-gray-300 w-96 mb-3"
+          />
           <label className="text-2xl" htmlFor="username">
-            Enter your username:
+            Create your username:
           </label>
           <input
             type="text"
@@ -41,7 +52,7 @@ function Login() {
           />
 
           <label className="text-2xl" htmlFor="password">
-            Enter your password:
+            Create your password:
           </label>
           <input
             type="password"
@@ -56,14 +67,14 @@ function Login() {
             type="submit"
             className="bg-blue-700 border text-white rounded-xl p-2 hover:bg-blue-900 w-96"
           >
-            Log In
+            Sign Up
           </button>
-          <h1>Don't have an account?</h1>
+          <h1>Already have an account?</h1>
           <Link
-            to="/signup"
+            to="/login"
             className="bg-gray-700 border text-white rounded-xl p-2 hover:bg-gray-900 text-center w-96"
           >
-            Sign Up
+            Login
           </Link>
         </form>
       </div>
@@ -71,4 +82,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

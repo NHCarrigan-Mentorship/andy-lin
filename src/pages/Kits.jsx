@@ -63,25 +63,30 @@ function Kits() {
           </button>
 
           {showFilter && (
-            <div
-              id="filterBar"
-              className="mt-4 p-4 rounded-xl space-y-4"
-            >
+            <div id="filterBar" className="mt-4 p-4 rounded-xl space-y-4">
               <div className="border-3 rounded-xl p-2 bg-gray-400">
                 <h2 className="text-lg">Grade:</h2>
-                {["HG", "RG", "MG", "PG", "SD", "Full Mechanics", "Other"].map(
-                  (grade) => (
-                    <label key={grade} className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        value={grade}
-                        checked={selectedGrades.includes(grade)}
-                        onChange={() => toggleGrade(grade)}
-                      />
-                      <span>{grade}</span>
-                    </label>
-                  )
-                )}
+                {[
+                  "HG",
+                  "RG",
+                  "MG",
+                  "PG",
+                  "SD",
+                  "FM",
+                  "RE",
+                  "Mega",
+                  "Other",
+                ].map((grade) => (
+                  <label key={grade} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      value={grade}
+                      checked={selectedGrades.includes(grade)}
+                      onChange={() => toggleGrade(grade)}
+                    />
+                    <span>{grade}</span>
+                  </label>
+                ))}
               </div>
 
               <div className="border-3 rounded-xl p-2 bg-gray-400">
@@ -96,7 +101,7 @@ function Kits() {
                   "Wing",
                   "G Gundam",
                   "Build Divers",
-                  "Other"
+                  "Other",
                 ].map((series) => (
                   <label key={series} className="flex items-center space-x-2">
                     <input
