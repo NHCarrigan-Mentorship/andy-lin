@@ -1,16 +1,14 @@
 import { cards as initialCards } from "../cardsData";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Kits() {
   const [query, setQuery] = useState("");
   const [showFilter, setShowFilter] = useState(false);
-
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState([]);
 
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-  };
+  const handleChange = (e) => setQuery(e.target.value);
 
   const toggleGrade = (grade) => {
     setSelectedGrades((prev) =>
@@ -28,18 +26,15 @@ function Kits() {
 
   const filteredCards = initialCards.filter((card) => {
     const matchesQuery = card.name.toLowerCase().includes(query.toLowerCase());
-
     const matchesGrade =
       selectedGrades.length === 0 || selectedGrades.includes(card.grade);
-
     const matchesSeries =
       selectedSeries.length === 0 || selectedSeries.includes(card.series);
-
     return matchesQuery && matchesGrade && matchesSeries;
   });
 
   return (
-    <div className="bg-gray-600 font-bold min-h-screen">
+    <div className="font-bold">
       <h1 className="text-center text-4xl p-4 font-serif pb-8">Kits</h1>
 
       <form>
@@ -118,17 +113,19 @@ function Kits() {
           )}
         </div>
 
-        <div id="boxes" className="grid grid-cols-4 gap-4 pl-4 pr-4">
+        <div id="boxes" className="grid grid-cols-4 gap-4 pl-4 pr-4 pt-2">
           {filteredCards.map((card) => (
             <div
               key={card.id}
               className="bg-gray-400 border-3 rounded-xl flex flex-col text-xl hover:bg-gray-700 hover:text-green-700"
             >
-              <img
-                src={card.image}
-                className="w-[95%] mx-auto pt-2"
-                alt={card.name}
-              />
+              <Link to={`/kits/${card.id}`}>
+                <img
+                  src={card.image}
+                  className="w-[95%] mx-auto pt-2"
+                  alt={card.name}
+                />
+              </Link>
               <h2 className="text-center mt-auto pb-4 pt-4">{card.name}</h2>
             </div>
           ))}

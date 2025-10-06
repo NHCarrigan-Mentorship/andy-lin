@@ -25,7 +25,7 @@ function Collection() {
       ));
 
   return (
-    <div className="bg-gray-600 font-bold min-h-screen gap-2">
+    <div className="font-bold gap-2">
       <h1 className="text-center text-4xl p-4 font-serif pb-8">Collection</h1>
 
       <form>

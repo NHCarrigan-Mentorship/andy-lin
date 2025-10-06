@@ -21,7 +21,7 @@ function Login() {
   };
 
   return (
-    <div className="bg-gray-600 font-bold min-h-screen">
+    <div className="font-bold">
       <h1 className="text-center text-4xl p-4 font-serif pb-8">Log In</h1>
       <div id="login_block" className="flex justify-center mt-20">
         <form

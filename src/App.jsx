@@ -5,6 +5,7 @@ import Kits from "./pages/Kits";
 import Collection from "./pages/Collection";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import KitPage from "./pages/KitPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/collection" element={<Collection />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/kits/:kitId" element={<KitPage />} />
       </Routes>
     </Router>
   );
