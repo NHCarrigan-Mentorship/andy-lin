@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import KitPage from "./pages/KitPage";
 import Profile from "./pages/Profile";
+import { demoUser } from "./userData";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/kits/:kitId" element={<KitPage />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile user={demoUser} />} />
       </Routes>
     </Router>
   );
