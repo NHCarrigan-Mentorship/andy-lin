@@ -115,19 +115,19 @@ function Kits() {
 
         <div id="boxes" className="grid grid-cols-4 gap-4 pl-4 pr-4 pt-2">
           {filteredCards.map((card) => (
-            <div
-              key={card.id}
-              className="bg-gray-400 border-3 rounded-xl flex flex-col text-xl hover:bg-gray-700 hover:text-green-700"
-            >
-              <Link to={`/kits/${card.id}`}>
+            <Link to={`/kits/${card.id}`}>
+              <div
+                key={card.id}
+                className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300  h-135 group"
+              >
                 <img
                   src={card.image}
-                  className="w-[95%] mx-auto pt-2"
+                  className="w-[95%] mx-auto pt-2 transition duration-300 group-hover:brightness-50"
                   alt={card.name}
                 />
-              </Link>
-              <h2 className="text-center mt-auto pb-4 pt-4">{card.name}</h2>
-            </div>
+                <h2 className="text-center mt-auto pb-4 pt-4">{card.name}</h2>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

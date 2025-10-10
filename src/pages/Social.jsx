@@ -13,12 +13,12 @@ export default function Social() {
           <Link
             key={user.id}
             to={`/profile/${user.id}`}
-            className="flex flex-col items-center border-2 p-4 rounded-lg w-40 hover:shadow-lg transition"
+            className="flex flex-col items-center border-4 p-4 rounded-lg w-75 bg-gray-400 transition duration-300  hover:bg-gray-800 group"
           >
             <img
               src={user.profilePic}
               alt={user.username}
-              className="w-24 h-24 rounded-full object-cover mb-2 border-2 text-white"
+              className="w-30 h-30 rounded-full object-cover mb-2 border-2 text-white transition duration-300 group-hover:brightness-50"
             />
             <span className="text-xl font-semibold">{user.username}</span>
           </Link>
