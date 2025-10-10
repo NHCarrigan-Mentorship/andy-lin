@@ -1,7 +1,7 @@
 import { kits } from "./userKits";
 
 export const demoUser = {
-  username: "Beast Jr",
+  username: "Gunpla Collection Dev",
   profilePic:
     "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=70,width=1200,height=675/catalog/crunchyroll/a0a016ce3473ceb587d2d0583c8bcc0f.jpe",
   kits: kits,
