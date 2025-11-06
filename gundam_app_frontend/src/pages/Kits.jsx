@@ -39,17 +39,24 @@ function Kits() {
 
   const filteredCards = kits.filter((card) => {
     const matchesQuery = card.name.toLowerCase().includes(query.toLowerCase());
+
     const matchesGrade =
-      selectedGrades.length === 0 || selectedGrades.includes(card.grade);
+      selectedGrades.length === 0 ||
+      selectedGrades.some((grade) => {
+        if (grade === "SD") return card.grade.toUpperCase().includes("SD");
+        if (grade === "FM") return card.grade === "FULL MECHANICS";
+        return card.grade === grade;
+      });
 
     const matchesSeries =
       selectedSeries.length === 0 ||
       selectedSeries.some((series) => {
         if (series === "Seed") return card.series === "SEED";
         if (series === "IBO") return card.series === "Iron-Blooded Orphans";
-        if (series === "WFM") return card.series === "Witch from Mercury";
-        if (series === "GQuuuuuux") return card.series === "Gundam GQuuuuuux";
-        if (series === "UC") return card.name.toLowerCase().includes("gundam");
+        if (series === "WFM") return card.series === "The Witch from Mercury";
+        if (series === "GQuuuuuux") return card.series === "Gundam GQuuuuuuX";
+        if (series === "00") return card.series === "Gundam 00";
+        if (series === "UC") return card.series.toLowerCase().includes("gundam");
         if (series === "Build Divers")
           return card.name.toLowerCase().includes("build");
         return card.series === series;
@@ -94,7 +101,7 @@ function Kits() {
                   "SD",
                   "MGSD",
                   "FM",
-                  "RE",
+                  "RE/100",
                   "Mega",
                   "Other",
                 ].map((grade) => (
