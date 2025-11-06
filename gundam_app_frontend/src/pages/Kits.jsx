@@ -1,12 +1,25 @@
-import { cards as initialCards } from "../cardsData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Kits() {
+  const [kits, setKits] = useState([]);
   const [query, setQuery] = useState("");
   const [showFilter, setShowFilter] = useState(false);
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState([]);
+
+  useEffect(() => {
+    const fetchKits = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/kits");
+        const data = await response.json();
+        setKits(data);
+      } catch (error) {
+        console.error("Error fetching kits:", error);
+      }
+    };
+    fetchKits();
+  }, []);
 
   const handleChange = (e) => setQuery(e.target.value);
 
@@ -24,12 +37,24 @@ function Kits() {
     );
   };
 
-  const filteredCards = initialCards.filter((card) => {
+  const filteredCards = kits.filter((card) => {
     const matchesQuery = card.name.toLowerCase().includes(query.toLowerCase());
     const matchesGrade =
       selectedGrades.length === 0 || selectedGrades.includes(card.grade);
+
     const matchesSeries =
-      selectedSeries.length === 0 || selectedSeries.includes(card.series);
+      selectedSeries.length === 0 ||
+      selectedSeries.some((series) => {
+        if (series === "Seed") return card.series === "SEED";
+        if (series === "IBO") return card.series === "Iron-Blooded Orphans";
+        if (series === "WFM") return card.series === "Witch from Mercury";
+        if (series === "GQuuuuuux") return card.series === "Gundam GQuuuuuux";
+        if (series === "UC") return card.name.toLowerCase().includes("gundam");
+        if (series === "Build Divers")
+          return card.name.toLowerCase().includes("build");
+        return card.series === series;
+      });
+
     return matchesQuery && matchesGrade && matchesSeries;
   });
 
@@ -67,6 +92,7 @@ function Kits() {
                   "MG",
                   "PG",
                   "SD",
+                  "MGSD",
                   "FM",
                   "RE",
                   "Mega",
@@ -94,7 +120,7 @@ function Kits() {
                   "WFM",
                   "GQuuuuuux",
                   "Wing",
-                  "G Gundam",
+                  "Fighter G",
                   "Build Divers",
                   "Other",
                 ].map((series) => (
@@ -115,13 +141,10 @@ function Kits() {
 
         <div id="boxes" className="grid grid-cols-4 gap-4 pl-4 pr-4 pt-2">
           {filteredCards.map((card) => (
-            <Link to={`/kits/${card.id}`}>
-              <div
-                key={card.id}
-                className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300  h-135 group"
-              >
+            <Link to={`/kits/${card._id}`} key={card._id}>
+              <div className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300  h-135 group">
                 <img
-                  src={card.image}
+                  src={card.imageUrl}
                   className="w-[95%] mx-auto pt-2 transition duration-300 group-hover:brightness-50"
                   alt={card.name}
                 />
