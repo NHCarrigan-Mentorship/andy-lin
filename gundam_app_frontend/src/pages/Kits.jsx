@@ -15,7 +15,7 @@ function Kits() {
         const data = await response.json();
         setKits(data);
       } catch (error) {
-        console.error("Error fetching kits:", error);
+        console.error(error);
       }
     };
     fetchKits();
@@ -38,12 +38,12 @@ function Kits() {
   };
 
   const filteredCards = kits.filter((card) => {
-    const matchesQuery = card.name.toLowerCase().includes(query.toLowerCase());
+    const matchesQuery = card.name?.toLowerCase().includes(query.toLowerCase());
 
     const matchesGrade =
       selectedGrades.length === 0 ||
       selectedGrades.some((grade) => {
-        if (grade === "SD") return card.grade.toUpperCase().includes("SD");
+        if (grade === "SD") return card.grade?.toUpperCase().includes("SD");
         if (grade === "FM") return card.grade === "FULL MECHANICS";
         return card.grade === grade;
       });
@@ -56,9 +56,10 @@ function Kits() {
         if (series === "WFM") return card.series === "The Witch from Mercury";
         if (series === "GQuuuuuux") return card.series === "Gundam GQuuuuuuX";
         if (series === "00") return card.series === "Gundam 00";
-        if (series === "UC") return card.series.toLowerCase().includes("gundam");
+        if (series === "UC")
+          return card.series?.toLowerCase().includes("gundam");
         if (series === "Build Divers")
-          return card.name.toLowerCase().includes("build");
+          return card.name?.toLowerCase().includes("build");
         return card.series === series;
       });
 
@@ -68,7 +69,6 @@ function Kits() {
   return (
     <div className="font-bold">
       <h1 className="text-center text-4xl p-4 font-serif pb-8">Kits</h1>
-
       <form>
         <input
           type="text"
@@ -146,19 +146,21 @@ function Kits() {
           )}
         </div>
 
-        <div id="boxes" className="grid grid-cols-4 gap-4 pl-4 pr-4 pt-2">
-          {filteredCards.map((card) => (
-            <Link to={`/kits/${card._id}`} key={card._id}>
-              <div className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300  h-135 group">
-                <img
-                  src={card.imageUrl}
-                  className="w-[95%] mx-auto pt-2 transition duration-300 group-hover:brightness-50"
-                  alt={card.name}
-                />
-                <h2 className="text-center mt-auto pb-4 pt-4">{card.name}</h2>
-              </div>
-            </Link>
-          ))}
+        <div className="grid grid-cols-4 gap-4">
+          {filteredCards
+            .filter((card) => card._id)
+            .map((card) => (
+              <Link to={`/kits/${card._id}`} key={card._id}>
+                <div className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300 h-135 group">
+                  <img
+                    src={card.imageUrl}
+                    className="w-[95%] mx-auto pt-2 transition duration-300 group-hover:brightness-50"
+                    alt={card.name}
+                  />
+                  <h2 className="text-center mt-auto pb-4 pt-4">{card.name}</h2>
+                </div>
+              </Link>
+            ))}
         </div>
       </div>
     </div>

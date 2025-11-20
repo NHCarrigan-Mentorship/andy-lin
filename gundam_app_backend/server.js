@@ -14,7 +14,6 @@ app.get("/", (req, res) => {
 
 app.post("/kits", async (req, res) => {
   console.log("Received data:", req.body);
-
   try {
     const newKit = new gunplaKit(req.body);
     await newKit.save();
@@ -39,7 +38,6 @@ app.delete("/kits/latest", async (req, res) => {
   try {
     const latestKit = await gunplaKit.findOne().sort({ _id: -1 });
     if (!latestKit) return res.status(404).json({ message: "No kits found" });
-
     await gunplaKit.findByIdAndDelete(latestKit._id);
     res.json({ message: "Deleted latest kit", deleted: latestKit });
   } catch (err) {
@@ -57,6 +55,44 @@ app.delete("/kits", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/kits/:id", async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid kit ID" });
+  }
+
+  try {
+    const kit = await gunplaKit.findById(id);
+    if (!kit) return res.status(404).json({ message: "Kit not found" });
+    res.json(kit);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// duplicate check
+app.get("/kits-debug/duplicates", async (req, res) => {
+  try {
+    const kits = await gunplaKit.find();
+    const byNumber = {};
+
+    kits.forEach((k) => {
+      if (!byNumber[k.kitNumber]) {
+        byNumber[k.kitNumber] = [];
+      }
+      byNumber[k.kitNumber].push(k);
+    });
+
+    const duplicates = Object.values(byNumber).filter(
+      (list) => list.length > 1
+    );
+
+    res.json(duplicates);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 

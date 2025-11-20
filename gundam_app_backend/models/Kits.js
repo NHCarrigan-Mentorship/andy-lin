@@ -2,14 +2,8 @@ const mongoose = require("mongoose");
 
 const gundamSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  grade: {
-    type: String,
-    required: true,
-  },
-  series: {
-    type: String,
-    required: true,
-  },
+  grade: String,
+  series: String,
   releaseYear: Number,
   kitNumber: Number,
   imageUrl: String,
