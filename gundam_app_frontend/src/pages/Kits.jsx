@@ -7,6 +7,8 @@ function Kits() {
   const [showFilter, setShowFilter] = useState(false);
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 20;
 
   useEffect(() => {
     const fetchKits = async () => {
@@ -54,21 +56,35 @@ function Kits() {
         if (series === "Seed") return card.series === "SEED";
         if (series === "IBO") return card.series === "Iron-Blooded Orphans";
         if (series === "WFM") return card.series === "The Witch from Mercury";
-        if (series === "GQuuuuuux") return card.series === "Gundam GQuuuuuuX";
+        if (series === "GQux") return card.series === "Gundam GQuuuuuuX";
         if (series === "00") return card.series === "Gundam 00";
+        if (series == "Fighter") return card.series === "Fighter G";
         if (series === "UC")
           return card.series?.toLowerCase().includes("gundam");
-        if (series === "Build Divers")
-          return card.name?.toLowerCase().includes("build");
+        if (series === "Build")
+          return card.series?.toLowerCase().includes("build");
         return card.series === series;
       });
 
     return matchesQuery && matchesGrade && matchesSeries;
   });
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [query, selectedGrades, selectedSeries])
+
+  const totalPages = Math.ceil(filteredCards.length / pageSize);
+
+  const paginatedCards = filteredCards.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
   return (
     <div className="font-bold">
       <h1 className="text-center text-4xl p-4 font-serif pb-8">Kits</h1>
+
+      {/* Query */}
       <form>
         <input
           type="text"
@@ -79,18 +95,19 @@ function Kits() {
         />
       </form>
 
+      {/* Filter */}
       <div id="content" className="flex pt-6">
-        <div className="pl-4 w-1/7">
+        <div className="pl-4">
           <button
             type="button"
-            className="text-xl bg-gray-400 border-3 rounded-xl p-2 hover:bg-gray-200"
+            className="text-xl bg-gray-400 border-3 rounded-xl p-2 hover:brightness-50 mr-32 whitespace-nowrap"
             onClick={() => setShowFilter(!showFilter)}
           >
-            Filter Options:
+            Filter by:
           </button>
 
           {showFilter && (
-            <div id="filterBar" className="mt-4 p-4 rounded-xl space-y-4">
+            <div id="filterBar" className="p-2 rounded-xl space-y-4 w-[50%]">
               <div className="border-3 rounded-xl p-2 bg-gray-400">
                 <h2 className="text-lg">Grade:</h2>
                 {[
@@ -125,10 +142,10 @@ function Kits() {
                   "00",
                   "IBO",
                   "WFM",
-                  "GQuuuuuux",
+                  "GQux",
                   "Wing",
-                  "Fighter G",
-                  "Build Divers",
+                  "Fighter",
+                  "Build",
                   "Other",
                 ].map((series) => (
                   <label key={series} className="flex items-center space-x-2">
@@ -146,15 +163,16 @@ function Kits() {
           )}
         </div>
 
+        {/* Kit Boxes */}
         <div className="grid grid-cols-4 gap-4">
-          {filteredCards
+          {paginatedCards
             .filter((card) => card._id)
             .map((card) => (
               <Link to={`/kits/${card._id}`} key={card._id}>
-                <div className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300 h-135 group">
+                <div className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300 h-90 group">
                   <img
                     src={card.imageUrl}
-                    className="w-[95%] mx-auto pt-2 transition duration-300 group-hover:brightness-50"
+                    className="w-[95%] mx-auto pt-2 transition duration-300 group-hover:brightness-50 rounded-xl"
                     alt={card.name}
                   />
                   <h2 className="text-center mt-auto pb-4 pt-4">{card.name}</h2>
@@ -162,6 +180,29 @@ function Kits() {
               </Link>
             ))}
         </div>
+
+        {/* Pages */}
+        <div className="justify-center ml-32 mr-4 w-auto whitespace-nowrap pr-4">
+          <span className="text-xl block pb-2">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="bg-gray-400 p-1 rounded-xl disabled:opacity-40 hover:brightness-50 border-3 mr-8"
+          >
+            Prev
+          </button>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="bg-gray-400 p-1 rounded-xl disabled:opacity-40 hover:brightness-50 border-3"
+          >
+            Next
+          </button>
+        </div>
+        {/* End */}
+
       </div>
     </div>
   );
