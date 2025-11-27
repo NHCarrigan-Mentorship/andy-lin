@@ -97,17 +97,17 @@ function Kits() {
 
       {/* Filter */}
       <div id="content" className="flex pt-6">
-        <div className="pl-4">
+        <div className="pl-4 mr-3">
           <button
             type="button"
-            className="text-xl bg-gray-400 border-3 rounded-xl p-2 hover:brightness-50 mr-32 whitespace-nowrap"
+            className="text-xl bg-gray-400 border-3 rounded-xl p-2 hover:brightness-50 whitespace-nowrap"
             onClick={() => setShowFilter(!showFilter)}
           >
             Filter by:
           </button>
 
           {showFilter && (
-            <div id="filterBar" className="p-2 rounded-xl space-y-4 w-[50%]">
+            <div id="filterBar" className="p-2 rounded-xl space-y-4 w-auto">
               <div className="border-3 rounded-xl p-2 bg-gray-400">
                 <h2 className="text-lg">Grade:</h2>
                 {[
@@ -169,20 +169,20 @@ function Kits() {
             .filter((card) => card._id)
             .map((card) => (
               <Link to={`/kits/${card._id}`} key={card._id}>
-                <div className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300 h-90 group">
+                <div className="bg-gray-400 border-3 rounded-xl flex flex-col hover:bg-gray-800 text-xl transition duration-300 h-120 group">
                   <img
                     src={card.imageUrl}
                     className="w-[95%] mx-auto pt-2 transition duration-300 group-hover:brightness-50 rounded-xl"
                     alt={card.name}
                   />
-                  <h2 className="text-center mt-auto pb-4 pt-4">{card.name}</h2>
+                  <h2 className="text-center mt-auto pb-6">{card.name}</h2>
                 </div>
               </Link>
             ))}
         </div>
 
         {/* Pages */}
-        <div className="justify-center ml-32 mr-4 w-auto whitespace-nowrap pr-4">
+        <div className="justify-center mr-4 w-auto whitespace-nowrap pr-4 ml-4">
           <span className="text-xl block pb-2">
             Page {currentPage} of {totalPages}
           </span>
