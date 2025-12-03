@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const gunplaKit = require("./models/Kits");
+const userRoutes = require("./routes/users")
 const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/users", userRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello World");
